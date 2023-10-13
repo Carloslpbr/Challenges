@@ -128,6 +128,7 @@ if criteria_1 and criteria_2 and criteria_3 == True:
     account_1.check_balance(account_1, withdraw_amount, account_balance, account_1.account_limit)
     print(f"Seu saldo atual é {account_1.balance}")
 
+#fim
 
 
 
