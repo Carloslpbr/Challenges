@@ -31,6 +31,7 @@ Banco será responsável autenticar o cliente e as contas da seguinte maneira:
 Só será possível sacar se passar na autenticação do banco (descrita acima)
 Banco autentica por um método.
 """
+from abc import ABC, abstractmethod
 
 def compare(criteria_1, criteria_2):
     validation = False
@@ -67,7 +68,7 @@ class Bank:
         self.bank_name = bank_name
         self.bank_num = bank_num
 
-class Account:
+class Account(ABC):
     def __init__(self, bank, bank_num, num):
         self.account_bank = bank
         self.account_bank_num = bank_num
@@ -81,8 +82,9 @@ class Account:
     def deposit(self, amount):
         self.balance += amount
 
+    @abstractmethod
     def withdraw(self, balance, withdraw):
-        self.balance -= withdraw
+        pass
         
 
 
@@ -91,10 +93,23 @@ class Account_Normal(Account):
         super().__init__(bank,bank_num, num)
         self.account_limit = 0    
 
+    def withdraw(self, balance, withdraw):
+        self.balance -= withdraw
+
+    def check_balance(self, account, amount, balance, limit_w):
+        if (balance - amount ) > limit_w:
+            account.withdraw(account, amount)
+            print("Operação válida!")
+        else:
+                print("Operação inválida!")
+
 class Account_Special(Account):
     def __init__(self, bank, bank_num,num):
         super().__init__(bank,bank_num, num)
         self.account_limit = -50
+
+    def withdraw(self, balance, withdraw):
+        self.balance -= withdraw
 
     def check_balance(self, account, amount, balance, limit_w):
         if (balance - amount ) > limit_w:
