@@ -103,7 +103,10 @@ class Account(ABC):
     @abstractmethod
     def withdraw(self, balance, withdraw):
         pass
-        
+    
+    @abstractmethod
+    def check_balance(self, account, amount, balance, limit_w):
+        pass
 
 
 class Account_Normal(Account):
@@ -120,6 +123,7 @@ class Account_Normal(Account):
             print("Operação válida!")
         else:
             print("Operação inválida!")
+            print("Saldo Insuficiente")
 
 class Account_Special(Account):
     def __init__(self, bank, bank_num,num):
@@ -133,8 +137,9 @@ class Account_Special(Account):
         if (balance - amount ) >= limit_w:
             account.withdraw(account, amount)
             print("Operação válida!")
-        else:
-            print("Operação inválida!")
+        else:            
+            print("Operação inválida.")
+            print("Saque excede o limite permitido")
 
 
 person_1 = Person("Carlos", 30)
@@ -150,7 +155,7 @@ client_withdraw = "Carlos"
 bank_withdraw = "Banco do Brasil"
 bank_account_num = 481
 deposit_1 = account_1.deposit(200)
-withdraw_amount = 258
+withdraw_amount = 240
 account_balance = account_1.balance
 
 
