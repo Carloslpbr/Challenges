@@ -25,10 +25,10 @@ Criar classes ContaPoupanca e ContaCorrente que herdam de Conta ok
 Criar classe Banco para AGREGAR classes de clientes e de contas (Agregação) ok 
 Banco será responsável autenticar o cliente e as contas da seguinte maneira:
     Banco tem contas e clentes (Agregação)
-    * Checar se a agência é daquele banco
-    * Checar se o cliente é daquele banco
-    * Checar se a conta é daquele banco
-Só será possível sacar se passar na autenticação do banco (descrita acima)
+    * Checar se a agência é daquele banco ok
+    * Checar se o cliente é daquele banco ok
+    * Checar se a conta é daquele banco ok 
+Só será possível sacar se passar na autenticação do banco (descrita acima) ok
 Banco autentica por um método.
 """
 from abc import ABC, abstractmethod
@@ -68,6 +68,24 @@ class Bank:
         self.bank_name = bank_name
         self.bank_num = bank_num
 
+    def validation(self, account, withdraw_amount, account_balance, account_limit, client_name, client_bank, client_account, \
+                   client_withdraw, bank_withdraw, bank_account_num):
+        criteria_1 = False
+        criteria_2 = False
+        criteria_3 = False   
+
+
+        criteria_1 = compare(client_name,client_withdraw)
+        criteria_2 = compare(client_bank,bank_withdraw)
+        criteria_3 = compare(client_account,bank_account_num)
+    
+        if criteria_1 and criteria_2 and criteria_3 == True:
+            account.check_balance(account, withdraw_amount, account_balance,account_limit)
+            return print(f"Seu saldo atual é {account.balance}")
+        else:
+            print("Operação inválida!")
+
+
 class Account(ABC):
     def __init__(self, bank, bank_num, num):
         self.account_bank = bank
@@ -97,11 +115,11 @@ class Account_Normal(Account):
         self.balance -= withdraw
 
     def check_balance(self, account, amount, balance, limit_w):
-        if (balance - amount ) > limit_w:
+        if (balance - amount ) >= limit_w:
             account.withdraw(account, amount)
             print("Operação válida!")
         else:
-                print("Operação inválida!")
+            print("Operação inválida!")
 
 class Account_Special(Account):
     def __init__(self, bank, bank_num,num):
@@ -112,11 +130,11 @@ class Account_Special(Account):
         self.balance -= withdraw
 
     def check_balance(self, account, amount, balance, limit_w):
-        if (balance - amount ) > limit_w:
+        if (balance - amount ) >= limit_w:
             account.withdraw(account, amount)
             print("Operação válida!")
         else:
-                print("Operação inválida!")
+            print("Operação inválida!")
 
 
 person_1 = Person("Carlos", 30)
@@ -132,18 +150,15 @@ client_withdraw = "Carlos"
 bank_withdraw = "Banco do Brasil"
 bank_account_num = 481
 deposit_1 = account_1.deposit(200)
-withdraw_amount = 500
+withdraw_amount = 258
 account_balance = account_1.balance
 
-criteria_1 = compare(client_1.name,client_withdraw)
-criteria_2 = compare(client_1.bank,bank_withdraw)
-criteria_3 = compare(client_1.account,bank_account_num)
 
-if criteria_1 and criteria_2 and criteria_3 == True:
-    account_1.check_balance(account_1, withdraw_amount, account_balance, account_1.account_limit)
-    print(f"Seu saldo atual é {account_1.balance}")
 
-#fim
+bank_1.validation(account_1, withdraw_amount, account_balance, account_1.account_limit, \
+                      client_1.name, client_1.bank, client_1.account, \
+                      client_withdraw, bank_withdraw, bank_account_num)
+
 
 
 
