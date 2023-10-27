@@ -99,6 +99,8 @@ class Account(ABC):
 
     def deposit(self, amount):
         self.balance += amount
+        print(f"Depósito de {amount} realizado, seu novo saldo é {self.balance}")
+        print("")
 
     @abstractmethod
     def withdraw(self, balance, withdraw):
@@ -116,6 +118,9 @@ class Account_Normal(Account):
 
     def withdraw(self, balance, withdraw):
         self.balance -= withdraw
+        print(f"Saque de {withdraw} realizado, seu novo saldo é {self.balance}")
+        print("")
+
 
     def check_balance(self, account, amount, balance, limit_w):
         if (balance - amount ) >= limit_w:
@@ -132,6 +137,8 @@ class Account_Special(Account):
 
     def withdraw(self, balance, withdraw):
         self.balance -= withdraw
+        print(f"Saque de {withdraw} realizado, seu novo saldo é {self.balance}")
+        print("")
 
     def check_balance(self, account, amount, balance, limit_w):
         if (balance - amount ) >= limit_w:
@@ -163,8 +170,6 @@ account_balance = account_1.balance
 bank_1.validation(account_1, withdraw_amount, account_balance, account_1.account_limit, \
                       client_1.name, client_1.bank, client_1.account, \
                       client_withdraw, bank_withdraw, bank_account_num)
-
-
 
 
 
