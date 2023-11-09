@@ -20,7 +20,6 @@ quota_value = value/quotas
 end_year = starter_date.year + time_years
 end_date = datetime(end_year,12,20)
 quota = 1
-
 date = starter_date
 
 while date != end_date:
