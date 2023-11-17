@@ -13,7 +13,7 @@ CAMINHO_HTML = pathlib.Path(__file__).parent / 'gmail.html'
 
 #dados do remetente e destinatário
 origin = os.getenv('FROM_EMAIL','')
-destination = origin
+destination = 'naborgesfilho@gmail.com'
 
 #configurações SMTP
 smtp_server = 'smtp.gmail.com'
@@ -25,7 +25,7 @@ smtp_password = os.getenv('EMAIL_PASSWORD','')
 with open(CAMINHO_HTML, 'r', encoding = 'utf-8') as file:
     text = file.read()
     template = Template(text)
-    text_email = template.substitute(nome = 'Carlos')
+    text_email = template.substitute(nome = 'Neilson')
 
 #Transformar mensagem em MIMEMultipart
 mime_multipart = MIMEMultipart()
